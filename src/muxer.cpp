@@ -1,0 +1,81 @@
+//#include "muxer.hpp"
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <cmath>
+#include "utils.hpp"
+using namespace std;
+EResult fDemuxWav(short** wave, char* cFilename, WAVEFORMAT* format, long* bytecount)
+{
+  ifstream iFile(cFilename, ios::binary);
+  if (iFile.is_open() == false){
+    cout << "File isn't found. Please check your Filename" << endl;
+    return ER_E_IO;
+  }
+  char cFOURCC[4];
+  iFile.read((char*) &cFOURCC, 4);
+  if (strncmp(cFOURCC, "RIFF", 4))
+  {
+    cout << "no riff" << endl;
+    iFile.close();
+    return ER_E_INVALIDFILE;
+  }
+  iFile.seekg(4, ios_base::cur);
+  iFile.read((char*) &cFOURCC, 4);
+  if (strncmp(cFOURCC, "WAVE", 4))
+  {
+    cout << "no wave" << endl;
+    iFile.close();
+    return ER_E_INVALIDFILE;
+  }
+
+  iFile.read((char*) &cFOURCC, 4);
+  if (strncmp(cFOURCC, "fmt ", 4)) {
+    cout << "Format Chunk missing or not first Chunk" << endl;
+    iFile.close();
+    return ER_E_INVALIDFILE;
+  }
+  uint32_t dwChunkSize;
+  iFile.read((char*) &dwChunkSize, 4);
+  if (dwChunkSize != sizeof(WAVEFORMAT)) {
+    cout << "Format Chunk has invalid size" << endl;
+    iFile.close();
+    return ER_E_INVALIDFILE;
+  }
+  iFile.read((char*) format, sizeof(WAVEFORMAT));
+
+  bool bFoundData = false;
+  while (!iFile.eof()) {
+    iFile.read((char*) &cFOURCC, 4);
+    if (!strncmp(cFOURCC, "data", 4)) {
+      cout << "Reading Data ...";
+      iFile.read((char*) bytecount, 4);
+      *wave = new short[*bytecount/2];
+      for (long i = 0; i < *bytecount; i+=2)
+      {
+        iFile.read(((char*) *wave)+i, 2);
+        if (i%65536 == 0)
+        {
+          cout << "\rReading Data ..." << floor((((float)i)/((float)*bytecount)) * 100.0f) << "%";
+        }
+      }
+      bFoundData = true;
+      break;
+    }
+    else
+    {
+      long ChunkLenght;
+      iFile.read((char*) &ChunkLenght, 4);
+      iFile.seekg(ChunkLenght, ios_base::cur);
+    }
+  }
+  cout << endl;
+  if (!bFoundData)
+  {
+    cout << "Did not find Wave Data!";
+    iFile.close();
+    return ER_E_INVALIDFILE;
+  }
+  iFile.close();
+  return ER_S_OK;
+};
