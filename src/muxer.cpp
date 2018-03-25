@@ -16,7 +16,7 @@ EResult fDemuxWav(short** wave, char* cFilename, WAVEFORMAT* format, long* bytec
   iFile.read((char*) &cFOURCC, 4);
   if (strncmp(cFOURCC, "RIFF", 4))
   {
-    cout << "no riff" << endl;
+    cout << "No RIFF FOURCC found! This is not a WAVE File!" << endl;
     iFile.close();
     return ER_E_INVALIDFILE;
   }
@@ -24,7 +24,7 @@ EResult fDemuxWav(short** wave, char* cFilename, WAVEFORMAT* format, long* bytec
   iFile.read((char*) &cFOURCC, 4);
   if (strncmp(cFOURCC, "WAVE", 4))
   {
-    cout << "no wave" << endl;
+    cout << "No WAVE FOURCC found! Make sure it's a Microsoft WAVE File!" << endl;
     iFile.close();
     return ER_E_INVALIDFILE;
   }
