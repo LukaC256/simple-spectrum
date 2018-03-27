@@ -36,7 +36,7 @@ int main (int argc, char* argv[])
   cout << "Bits/Sample: " << format.wBitsPerSample << endl;
   cout << "Num Samples: " << samplecount << endl;
 
-  
+
   delete[] wave;
   wave = NULL;
   return 0;

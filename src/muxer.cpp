@@ -51,15 +51,9 @@ EResult fDemuxWav(short** wave, char* cFilename, WAVEFORMAT* format, long* bytec
       cout << "Reading Data ...";
       iFile.read((char*) bytecount, 4);
       *wave = new short[*bytecount/2];
-      for (long i = 0; i < *bytecount; i+=2)
-      {
-        iFile.read(((char*) *wave)+i, 2);
-        if (i%65536 == 0)
-        {
-          cout << "\rReading Data ..." << floor((((float)i)/((float)*bytecount)) * 100.0f) << "%";
-        }
-      }
+      iFile.read((char*) *wave, *bytecount);
       bFoundData = true;
+      cout << "Done!" << endl;
       break;
     }
     else
@@ -69,7 +63,6 @@ EResult fDemuxWav(short** wave, char* cFilename, WAVEFORMAT* format, long* bytec
       iFile.seekg(ChunkLenght, ios_base::cur);
     }
   }
-  cout << endl;
   if (!bFoundData)
   {
     cout << "Did not find Wave Data!";
