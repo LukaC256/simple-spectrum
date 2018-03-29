@@ -5,7 +5,7 @@ using namespace std;
 
 int main (int argc, char* argv[])
 {
-  cout << "Small ADPCM encoder" << endl;
+  cout << "WINAE ADPCM encoder" << endl;
   char* pcFilename = NULL;
   for (int i = 0; i < argc; i++) {
     char* arg = argv[i];
@@ -17,7 +17,7 @@ int main (int argc, char* argv[])
     }
   }
   if (pcFilename == NULL){
-    cout << "No Filename given! Please specify with -i" << endl;
+    cout << "No Filename given! Please specify input file with -i" << endl;
     return 0;
   }
   short* wave = NULL;

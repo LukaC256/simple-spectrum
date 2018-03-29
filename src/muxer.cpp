@@ -38,7 +38,7 @@ EResult fDemuxWav(short** wave, char* cFilename, WAVEFORMAT* format, long* bytec
   uint32_t dwChunkSize;
   iFile.read((char*) &dwChunkSize, 4);
   if (dwChunkSize != sizeof(WAVEFORMAT)) {
-    cout << "Format Chunk has invalid size" << endl;
+    cout << "Format Chunk has invalid size. The file is probably not PCM_S16LE encoded!" << endl;
     iFile.close();
     return ER_E_INVALIDFILE;
   }
