@@ -34,8 +34,11 @@ int main (int argc, char* argv[])
   cout << "Bitrate    : " << format.dwAvgBytesPerSec << endl;
   cout << "Block Align: " << format.wBlockAlign << endl;
   cout << "Bits/Sample: " << format.wBitsPerSample << endl;
-  cout << "Num Samples: " << samplecount << endl;
-
+  cout << "Num Blocks : " << samplecount << endl;
+  int seconds = samplecount/format.dwSamplesPerSec;
+  int minutes = seconds/60;
+  seconds = seconds%60;
+  cout << "Duration   : " << minutes << ":" << seconds << endl;
 
   delete[] wave;
   wave = NULL;
