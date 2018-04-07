@@ -5,7 +5,7 @@ using namespace std;
 
 int main (int argc, char* argv[])
 {
-  cout << "WINAE ADPCM encoder" << endl;
+  cout << "Spectrum Analyzer" << endl;
   char* pcFilename = NULL;
   for (int i = 0; i < argc; i++) {
     char* arg = argv[i];

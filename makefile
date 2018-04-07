@@ -3,14 +3,14 @@ $(VERBOSE).SILENT:
 SRCDIR = src/
 OBJDIR = obj/
 BINDIR = bin/
-BINNAME = winae
+BINNAME = spectrum
 SRCFILES = $(wildcard $(SRCDIR)*.cpp)
 OBJFILES = $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCFILES))
 BINFILE = $(BINDIR)$(BINNAME)
 EXOBJECTS = $(wildcard $(OBJDIR)*.o)
 
 help:
-	echo "Makefile for the WINAE Encoder"
+	echo "Makefile for Simple Spectrum Analyzer"
 	echo "by LukaCPP 2018"
 	echo "====================================="
 	echo "make all     - compile everything"
