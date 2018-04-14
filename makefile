@@ -4,6 +4,8 @@ SRCDIR = src/
 OBJDIR = obj/
 BINDIR = bin/
 BINNAME = spectrum
+GCCSUFFIX = -I/usr/include/SDL2 -DUSE_VCHIQ_ARM -I/opt/vc/include -I/opt/vc/include/interface/vmcs_host/linux -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include -I/opt/vc/include/interface/vmcs_host/linux -I/opt/vc/include/interface/vcos/pthreads -D_REENTRANT -L/usr/lib/arm-linux-gnueabihf -lSDL2
+
 SRCFILES = $(wildcard $(SRCDIR)*.cpp)
 OBJFILES = $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCFILES))
 BINFILE = $(BINDIR)$(BINNAME)
@@ -23,14 +25,14 @@ help:
 
 all : $(OBJFILES)
 	echo "Make: Linking binary"
-	g++ -o $(BINFILE) $(OBJFILES)
+	g++ -o $(BINFILE) $(OBJFILES) $(GCCSUFFIX)
 	echo "Make: Build finished! Hooray!"
 
 re : clean all
 
 obj/%.o : src/%.cpp
 	echo "Make: Compiling $<"
-	g++ -c $< -o $@
+	g++ -c $< -o $@ $(GCCSUFFIX)
 
 dirs:
 	mkdir obj

@@ -1,10 +1,12 @@
 #include <iostream>
 #include "muxer.hpp"
+#include </usr/include/SDL2/SDL.h>
 
 using namespace std;
 
 int main (int argc, char* argv[])
 {
+  atexit(SDL_Quit);
   cout << "Spectrum Analyzer" << endl;
   char* pcFilename = NULL;
   for (int i = 0; i < argc; i++) {
@@ -39,6 +41,13 @@ int main (int argc, char* argv[])
   int minutes = seconds/60;
   seconds = seconds%60;
   cout << "Duration   : " << minutes << ":" << seconds << endl;
+
+  if (SDL_Init(SDL_INIT_EVENTS | SDL_INIT_AUDIO))
+  {
+    cout << "SDL_Init failed! " << SDL_GetError() << endl;
+    return 1;
+  }
+
 
   delete[] wave;
   wave = NULL;
