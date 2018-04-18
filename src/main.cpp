@@ -1,12 +1,13 @@
 #include <iostream>
 #include "muxer.hpp"
-#include </usr/include/SDL2/SDL.h>
+#include "playback.hpp"
+#include <SDL2/SDL.h>
 
 using namespace std;
 
 int main (int argc, char* argv[])
 {
-  atexit(SDL_Quit);
+  atexit(SDL_Quit); // Automatically Quit SDL on Program Exit
   cout << "Spectrum Analyzer" << endl;
   char* pcFilename = NULL;
   for (int i = 0; i < argc; i++) {
@@ -48,6 +49,7 @@ int main (int argc, char* argv[])
     return 1;
   }
 
+	fPlayback(wave, format, bytelenght);
 
   delete[] wave;
   wave = NULL;
