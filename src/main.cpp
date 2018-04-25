@@ -34,7 +34,7 @@ int main (int argc, char* argv[])
   long samplecount = bytelenght/format.wBlockAlign;
   cout << "Channels   : " << format.wChannels << endl;
   cout << "Sample Rate: " << format.dwSamplesPerSec << endl;
-  cout << "Bitrate    : " << format.dwAvgBytesPerSec << endl;
+  cout << "bytes/sec  : " << format.dwAvgBytesPerSec << endl;
   cout << "Block Align: " << format.wBlockAlign << endl;
   cout << "Bits/Sample: " << format.wBitsPerSample << endl;
   cout << "Num Blocks : " << samplecount << endl;
