@@ -2,6 +2,7 @@
 #include "muxer.hpp"
 #include "playback.hpp"
 #include <SDL2/SDL.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -10,6 +11,7 @@ int main (int argc, char* argv[])
   atexit(SDL_Quit); // Automatically Quit SDL on Program Exit
   cout << "Spectrum Analyzer" << endl;
   char* pcFilename = NULL;
+	float fSpeed = 0.0f;
   for (int i = 0; i < argc; i++) {
     char* arg = argv[i];
     char firstc = *arg;
@@ -17,8 +19,19 @@ int main (int argc, char* argv[])
       if ((*(arg + 1) == 'i') && ((i+1) < argc)) {
         pcFilename = argv[i+1];
       }
+			else if (*(arg+1) == 's') {
+				fSpeed = atof(argv[i+1]);
+			}
     }
   }
+
+	if (fSpeed != 0.0f) {
+		cout << "Speed: " << fSpeed << endl;
+	}
+	else {
+		fSpeed = 1.0f;
+	}
+
   if (pcFilename == NULL){
     cout << "No Filename given! Please specify input file with -i" << endl;
     return 0;
@@ -49,7 +62,7 @@ int main (int argc, char* argv[])
     return 1;
   }
 
-	fPlayback(wave, format, bytelenght);
+	fPlayback(wave, format, bytelenght, fSpeed);
 
   delete[] wave;
   wave = NULL;

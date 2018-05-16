@@ -4,10 +4,10 @@
 
 using namespace std;
 
-EResult fPlayback(short* wave, WAVEFORMAT format, long bytecount)
+EResult fPlayback(short* wave, WAVEFORMAT format, long bytecount, float speed)
 {
   SDL_AudioSpec audiospec;
-  audiospec.freq = format.dwSamplesPerSec;
+  audiospec.freq = format.dwSamplesPerSec * speed;
   audiospec.format = AUDIO_S16LSB;
   audiospec.channels = format.wChannels;
   audiospec.samples = 4096;
