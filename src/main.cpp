@@ -1,7 +1,7 @@
 #include <iostream>
 #include "muxer.hpp"
 #include "playback.hpp"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <stdlib.h>
 
 using namespace std;
